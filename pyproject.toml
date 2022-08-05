@@ -24,3 +24,4 @@ lifelike-fix-modified-date = "lifelike_fix_modified_date:__main__"
 [tool.poetry-dynamic-versioning]
 enable = true
 vcs = "git"
+style = "semver"
