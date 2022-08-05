@@ -1,0 +1,23 @@
+name: Build and publish package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v1.12
+        with:
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
+
+      - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v1.12
+        with:
+          pypi_token: ${{ secrets.PYPI_TOKEN }}
+          build_format: "sdist"
+          allow_poetry_pre_release: "yes"
+          ignore_dev_requirements: "yes"
