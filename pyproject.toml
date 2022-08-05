@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "lifelike-fix-modified-date"
+version = "0.0.0"
+description = "Fixes all modified_date columns in a database to match the values in a backup database."
+authors = ["SBRG <sbrg@lifelike.bio>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "^8"
+docopt = "^0.6"
+psycopg2 = "^2.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+cli-name = "lifelike_fix_modified_date.cli"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
