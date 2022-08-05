@@ -59,9 +59,7 @@ Fix options:
 
 Examples:
   lifelike-fix-modified-date stats --database=postgres://user:pass@localhost:5432/db
-  lifelike-fix-modified-date fix "2022-08-03 18:21:49.498104" \
-                             --database=postgres://user:pass@host:5432/db \
-                             --backup-database=postgres://user:pass@backup-host:5432/db
+  lifelike-fix-modified-date fix "2022-08-03 18:21:49.498104" --database=postgres://user:pass@host:5432/db --backup-database=postgres://user:pass@backup-host:5432/db
 ```
 
 ---

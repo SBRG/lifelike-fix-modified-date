@@ -65,7 +65,7 @@ def get_modified_date_stats(db):
     )
 
     # Call the function
-    db.callproc('get_min_max_modified_date')
+    db.callproc("get_min_max_modified_date")
 
     # Return only tables with existing modified_date values
     return (row for row in db.fetchall() if all(*row))
@@ -102,9 +102,7 @@ def fix_modified_date(
         )
         exit(1)
 
-    if not confirm(
-        f"About to update {len(dates)} rows in table `{table}`. Continue?"
-    ):
+    if not confirm(f"About to update {len(dates)} rows in table `{table}`. Continue?"):
         echo("Abotring...")
         exit(1)
 

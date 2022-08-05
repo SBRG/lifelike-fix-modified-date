@@ -18,8 +18,8 @@ black = "*"
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
 build-backend = "poetry.core.masonry.api"
 
-[project.scripts]
-cli-name = "lifelike_fix_modified_date.cli"
+[tool.poetry.scripts]
+lifelike-fix-modified-date = "lifelike_fix_modified_date:__main__"
 
 [tool.poetry-dynamic-versioning]
 enable = true

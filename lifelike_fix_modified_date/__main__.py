@@ -23,9 +23,7 @@ Fix options:
 
 Examples:
   lifelike-fix-modified-date stats --database=postgres://user:pass@localhost:5432/db
-  lifelike-fix-modified-date fix "2022-08-03 18:21:49.498104" \
-                             --database=postgres://user:pass@host:5432/db \
-                             --backup-database=postgres://user:pass@backup-host:5432/db
+  lifelike-fix-modified-date fix "2022-08-03 18:21:49.498104" --database=postgres://user:pass@host:5432/db --backup-database=postgres://user:pass@backup-host:5432/db
 """
 from sys import exit
 
@@ -39,13 +37,13 @@ from .__about__ import __version__
 args = docopt(__doc__, version=__version__)
 
 # Connect to the Postgres database
-db = get_db_cursor(args['--database'])
+db = get_db_cursor(args["--database"])
 
-if args['stats']:
+if args["stats"]:
     stats = get_modified_date_stats(db)
 
     if len(stats) == 0:
-        echo('No tables with modified_date values found. Empty database?')
+        echo("No tables with modified_date values found. Empty database?")
     else:
         echo(
             "Stats about modified_date column in target database:\n\n"
@@ -55,17 +53,17 @@ if args['stats']:
             )
         )
 
-elif args['fix']:
+elif args["fix"]:
     echo(f"Connecting to backup database: {args['--backup-database']}\n")
-    backup_db = get_db_cursor(args['--backup-database'])
+    backup_db = get_db_cursor(args["--backup-database"])
 
     try:
         fix_modified_date(
             db,
             backup_db,
-            args['<bad_modified_date>'],
-            args['--table'],
-            ignore_count_mismatch=args['--ignore-count-mismatch'],
+            args["<bad_modified_date>"],
+            args["--table"],
+            ignore_count_mismatch=args["--ignore-count-mismatch"],
         )
     except errors.InvalidDatetimeFormat:
         echo(f"Invalid datetime provided: {args['<bad_modified_date>']}")
