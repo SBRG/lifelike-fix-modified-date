@@ -110,3 +110,5 @@ def fix_modified_date(
 
     update_query = f"UPDATE {table} SET modified_date = %s WHERE id = %s"
     db.executemany(update_query, dates)
+
+    echo(f"Done! Updated {len(dates)} rows in table `{table}`\n{{dates}}")
