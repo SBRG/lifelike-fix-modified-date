@@ -1,8 +1,10 @@
+from datetime import datetime
 from itertools import chain
 from sys import exit
+from typing import List, Tuple
 
 from click import confirm, echo
-from psycopg2 import connect, errors
+from psycopg2 import connect, errors, extras
 
 
 def get_db_cursor(connection_string):
@@ -18,7 +20,7 @@ def get_db_cursor(connection_string):
         exit(1)
 
 
-def get_modified_date_stats(db):
+def get_modified_date_stats(db) -> List[Tuple[str, datetime, datetime]]:
     """
     Print some stats about the modified_date column on all tables of a database
     """
@@ -68,7 +70,7 @@ def get_modified_date_stats(db):
     db.callproc("get_min_max_modified_date")
 
     # Return only tables with existing modified_date values
-    return (row for row in db.fetchall() if all(*row))
+    return [row for row in db.fetchall() if all(*row)]
 
 
 def fix_modified_date(
@@ -77,7 +79,7 @@ def fix_modified_date(
     bad_modified_date,
     table,
     ignore_count_mismatch=False,
-):
+) -> None:
     """
     Fix the modified_date column in a table by copying the original value from a backup instance
     """
