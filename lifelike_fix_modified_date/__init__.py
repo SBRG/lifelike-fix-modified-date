@@ -13,7 +13,6 @@ def get_db_cursor(connection_string):
     """
     try:
         db = connect(connection_string)
-        echo(f"Connected to database: {connection_string}")
         return db.cursor()
     except errors.Error as e:
         echo(f"Could not connect to database: {connection_string}\n{e}")
@@ -109,6 +108,8 @@ def fix_modified_date(
         exit(1)
 
     update_query = f"UPDATE {table} SET modified_date = %s WHERE id = %s"
-    db.executemany(update_query, dates)
+    for new_date, id in dates:
+        db.execute(update_query, (new_date, id))
+        db.execute("COMMIT")
 
-    echo(f"Done! Updated {len(dates)} rows in table `{table}`\n{{dates}}")
+    echo(f"Done! Updated {db.rowcount} rows in table `{table}`\n{dates}")

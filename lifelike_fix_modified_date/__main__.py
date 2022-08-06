@@ -36,10 +36,8 @@ from .__about__ import __version__
 
 args = docopt(__doc__, version=__version__)
 
-# Connect to the Postgres database
-db = get_db_cursor(args["--database"])
-
 if args["stats"]:
+    db = get_db_cursor(args["--database"])
     stats = get_modified_date_stats(db)
 
     if len(stats) == 0:
@@ -54,7 +52,10 @@ if args["stats"]:
         )
 
 elif args["fix"]:
-    echo(f"Connecting to backup database: {args['--backup-database']}\n")
+    echo(f"Connecting to bad (WRITE) database to fix: {args['--database']}\n")
+    db = get_db_cursor(args["--database"])
+
+    echo(f"Connecting to backup (READ) database {args['--backup-database']}\n")
     backup_db = get_db_cursor(args["--backup-database"])
 
     try:
