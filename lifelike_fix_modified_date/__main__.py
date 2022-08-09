@@ -45,7 +45,7 @@ if args["stats"]:
     else:
         echo(
             "Stats about modified_date column in target database:\n\n"
-            f"{'Table':<30} {'Min modified_date':<30} {'Max modified_date':30}\n{'-' * 90}\n"
+            f"{'Table':<30} {'Max modified_date':<30} {'Min modified_date':30}\n{'-' * 90}\n"
             + "\n".join(
                 ["{:<30} {:<30} {:<30}".format(*map(str, row)) for row in stats]
             )
